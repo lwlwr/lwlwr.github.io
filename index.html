@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李文睿 | 北邮研究生 - 秋招求职</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1e1e1e;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #00d4aa;
+            --accent-dim: rgba(0, 212, 170, 0.15);
+            --border: #2a2a2a;
+            --font-display: 'Space Mono', monospace;
+            --font-body: 'DM Sans', sans-serif;
+            --font-serif: 'Noto Serif SC', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, var(--accent-dim) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 170, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, transparent 0%, rgba(0, 212, 170, 0.02) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Grid Pattern Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--accent);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 0 4rem;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-label {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .hero-name {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-name .highlight {
+            color: var(--accent);
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .hero-school {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-school::before {
+            content: '◆';
+            color: var(--accent);
+            font-size: 0.6rem;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 540px;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.75rem;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            background: #00eabb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-secondary);
+            background: var(--bg-secondary);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        /* Experience Cards */
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .experience-card:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .experience-card:hover::before {
+            opacity: 1;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .experience-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .experience-role {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-top: 0.25rem;
+        }
+
+        .experience-period {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        .experience-org {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .experience-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .experience-desc ul {
+            margin-top: 0.75rem;
+            padding-left: 1.25rem;
+        }
+
+        .experience-desc li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .skill-category-title {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            padding: 0.4rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        /* Contact */
+        .contact-content {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-desc {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-text {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 5rem 0 3rem;
+            }
+
+            .hero-name {
+                font-size: 2.5rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body::before, body::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-logo">WR</div>
+            <ul class="nav-links">
+                <li><a href="#about">关于</a></li>
+                <li><a href="#research">科研</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#experience">经历</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">Hello, I'm</div>
+                <h1 class="hero-name">李文睿</h1>
+                <p class="hero-title">北京邮电大学 · 计算机科学与技术 · 硕士研究生</p>
+                <p class="hero-school">2025 届秋招 · 后端开发 / 算法工程师</p>
+                <p class="hero-desc">
+                    北邮研二学生，研究方向为分布式系统与高性能计算。
+                    具备扎实的算法功底和工程实践经验，热衷于解决有挑战性的技术问题。
+                    期待加入一家有技术影响力的公司，共同打造优秀的产品。
+                </p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">
+                        <span>📮</span> 联系我
+                    </a>
+                    <a href="#projects" class="btn btn-secondary">
+                        <span>→</span> 查看项目
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="research">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Research</div>
+                <h2 class="section-title">科研经历</h2>
+            </div>
+            <div class="experience-list">
+                <div class="experience-card fade-in delay-1">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">分布式一致性协议研究</h3>
+                            <p class="experience-role">研究方向</p>
+                        </div>
+                        <span class="experience-period">2023.09 - 至今</span>
+                    </div>
+                    <p class="experience-org">北京邮电大学 · 计算机学院</p>
+                    <div class="experience-desc">
+                        <ul>
+                            <li>研究 Raft/Paxos 共识算法在分布式存储系统中的应用</li>
+                            <li>针对弱一致性场景优化协议性能，提出改进方案</li>
+                            <li>参与实验室分布式系统相关课题研究与实现</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in delay-2">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">高性能网络通信框架</h3>
+                            <p class="experience-role">本科毕业设计 · 优秀论文</p>
+                        </div>
+                        <span class="experience-period">2022.09 - 2023.06</span>
+                    </div>
+                    <p class="experience-org">北京邮电大学</p>
+                    <div class="experience-desc">
+                        <ul>
+                            <li>设计并实现基于 Epoll 的高性能网络 I/O 框架</li>
+                            <li>支持百万级并发连接，吞吐量达到 100K QPS</li>
+                            <li>对比研究主流网络框架（Netty、Libevent）的性能差异</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Projects</div>
+                <h2 class="section-title">项目经历</h2>
+            </div>
+            <div class="experience-list">
+                <div class="experience-card fade-in delay-1">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">分布式 KV 存储系统</h3>
+                            <p class="experience-role">核心开发 · Golang</p>
+                        </div>
+                        <span class="experience-period">2024.03 - 2024.08</span>
+                    </div>
+                    <p class="experience-org">实验室项目 · 3 人团队</p>
+                    <div class="experience-desc">
+                        <ul>
+                            <li>基于 Raft 共识算法实现分布式一致性</li>
+                            <li>实现 RocksDB 作为底层存储引擎，支持持久化</li>
+                            <li>使用 gRPC 构建节点间通信，支持水平扩展</li>
+                            <li>压力测试结果：3 节点集群可达 50K QPS 写入</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in delay-2">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">轻量级容器编排平台</h3>
+                            <p class="experience-role">全栈开发 · Go + Docker + K8s</p>
+                        </div>
+                        <span class="experience-period">2023.11 - 2024.02</span>
+                    </div>
+                    <p class="experience-org">课程项目 · 4 人团队</p>
+                    <div class="experience-desc">
+                        <ul>
+                            <li>实现容器生命周期管理（创建、启动、停止、删除）</li>
+                            <li>基于 Docker API 实现镜像管理与资源限制</li>
+                            <li>设计 RESTful API，支持 Web 端可视化操作</li>
+                            <li>获得课程最高分（98/100）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in delay-3">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">算法竞赛训练平台</h3>
+                            <p class="experience-role">后端开发 · Python + FastAPI</p>
+                        </div>
+                        <span class="experience-period">2023.06 - 2023.09</span>
+                    </div>
+                    <p class="experience-org">个人项目</p>
+                    <div class="experience-desc">
+                        <ul>
+                            <li>实现在线代码评测系统，支持多语言编译执行</li>
+                            <li>使用沙箱技术保障代码执行安全</li>
+                            <li>设计题目管理、竞赛组织、用户积分等功能</li>
+                            <li>部署于阿里云，服务校内 500+ 用户</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in delay-4">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">LeetCode 刷题记录</h3>
+                            <p class="experience-role">个人项目</p>
+                        </div>
+                        <span class="experience-period">持续更新</span>
+                    </div>
+                    <div class="experience-desc">
+                        <ul>
+                            <li><strong>累计刷题 800+</strong>，周赛最高排名全球前 5%</li>
+                            <li>擅长数据结构、动态规划、图论算法</li>
+                            <li>整理了系统的算法知识笔记，GitHub 400+ Star</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Experience</div>
+                <h2 class="section-title">校园经历</h2>
+            </div>
+            <div class="experience-list">
+                <div class="experience-card fade-in delay-1">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">计算机学院研究生会</h3>
+                            <p class="experience-role">技术部部长</p>
+                        </div>
+                        <span class="experience-period">2023.09 - 2024.09</span>
+                    </div>
+                    <div class="experience-desc">
+                        <ul>
+                            <li>组织技术分享讲座 10+ 场，邀请业界工程师来校交流</li>
+                            <li>负责学院官网与新生系统的技术维护</li>
+                            <li>带领 5 人团队举办首届北邮黑客马拉松活动</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in delay-2">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">字节跳动</h3>
+                            <p class="experience-role">后端开发实习生</p>
+                        </div>
+                        <span class="experience-period">2024.07 - 2024.09</span>
+                    </div>
+                    <div class="experience-desc">
+                        <ul>
+                            <li>参与企业级即时通讯系统的后端开发</li>
+                            <li>优化消息处理流程，延迟降低 30%</li>
+                            <li>独立完成新功能模块设计与实现，上线后运行稳定</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in delay-3">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="experience-title">ACM 竞赛集训队</h3>
+                            <p class="experience-role">核心成员</p>
+                        </div>
+                        <span class="experience-period">2020.09 - 2023.06</span>
+                    </div>
+                    <div class="experience-desc">
+                        <ul>
+                            <li>ICPC 区域赛银牌 × 2，CCPC 区域赛银牌</li>
+                            <li>多次获得校级、省级程序设计竞赛一等奖</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Skills</div>
+                <h2 class="section-title">技术技能</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">编程语言</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Go</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C/C++</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">后端框架</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Gin</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">gRPC</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">基础设施</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">RocksDB</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-category-title">工具 & 其他</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Vim</span>
+                        <span class="skill-tag">LaTeX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="contact-title">Let's Connect</h2>
+                <p class="contact-desc">
+                    对我的经历感兴趣？欢迎随时联系我，期待与您交流！
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:your.email@bupt.edu.cn" class="contact-link">
+                        <span>📧</span> 邮件
+                    </a>
+                    <a href="https://github.com/yourusername" target="_blank" class="contact-link">
+                        <span>🐙</span> GitHub
+                    </a>
+                    <a href="https://juejin.cn/user/yourid" target="_blank" class="contact-link">
+                        <span>📝</span> 掘金
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">© 2024 李文睿 · 北京邮电大学</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add current year to footer
+        document.querySelector('.footer-text').textContent = 
+            `© ${new Date().getFullYear()} 李文睿 · 北京邮电大学`;
+    </script>
+</body>
+</html>
