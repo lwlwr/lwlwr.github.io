@@ -1,877 +1,1046 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>李文睿 | 北邮研究生 - 秋招求职</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #141414;
-            --bg-tertiary: #1e1e1e;
-            --text-primary: #f5f5f5;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666666;
-            --accent: #00d4aa;
-            --accent-dim: rgba(0, 212, 170, 0.15);
-            --border: #2a2a2a;
-            --font-display: 'Space Mono', monospace;
-            --font-body: 'DM Sans', sans-serif;
-            --font-serif: 'Noto Serif SC', serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Background Pattern */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, var(--accent-dim) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 212, 170, 0.05) 0%, transparent 40%),
-                linear-gradient(180deg, transparent 0%, rgba(0, 212, 170, 0.02) 100%);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Grid Pattern Overlay */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 0;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            color: var(--accent);
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 6rem 0 4rem;
-        }
-
-        .hero-content {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero-label {
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .hero-label::before {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: var(--accent);
-        }
-
-        .hero-name {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-        }
-
-        .hero-name .highlight {
-            color: var(--accent);
-            position: relative;
-        }
-
-        .hero-title {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-        }
-
-        .hero-school {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .hero-school::before {
-            content: '◆';
-            color: var(--accent);
-            font-size: 0.6rem;
-        }
-
-        .hero-desc {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 540px;
-            margin-bottom: 2.5rem;
-            line-height: 1.8;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.9rem 1.75rem;
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg-primary);
-            font-weight: 700;
-        }
-
-        .btn-primary:hover {
-            background: #00eabb;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 212, 170, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-secondary);
-            background: var(--bg-secondary);
-        }
-
-        /* Sections */
-        section {
-            padding: 6rem 0;
-        }
-
-        .section-header {
-            margin-bottom: 3.5rem;
-        }
-
-        .section-label {
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            font-weight: 600;
-        }
-
-        /* Experience Cards */
-        .experience-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .experience-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .experience-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--accent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .experience-card:hover {
-            border-color: var(--accent);
-            transform: translateX(4px);
-        }
-
-        .experience-card:hover::before {
-            opacity: 1;
-        }
-
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .experience-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .experience-role {
-            font-size: 0.9rem;
-            color: var(--accent);
-            margin-top: 0.25rem;
-        }
-
-        .experience-period {
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            background: var(--bg-tertiary);
-            padding: 0.35rem 0.75rem;
-            border-radius: 4px;
-        }
-
-        .experience-org {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .experience-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .experience-desc ul {
-            margin-top: 0.75rem;
-            padding-left: 1.25rem;
-        }
-
-        .experience-desc li {
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-category {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-        }
-
-        .skill-category-title {
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .skill-tag {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            background: var(--bg-tertiary);
-            padding: 0.4rem 0.75rem;
-            border-radius: 4px;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .skill-tag:hover {
-            border-color: var(--accent);
-            color: var(--text-primary);
-        }
-
-        /* Contact */
-        .contact-content {
-            text-align: center;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .contact-title {
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-desc {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            padding: 0.75rem 1.25rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .contact-link:hover {
-            border-color: var(--accent);
-            color: var(--text-primary);
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        footer {
-            padding: 3rem 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .footer-text {
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 5rem 0 3rem;
-            }
-
-            .hero-name {
-                font-size: 2.5rem;
-            }
-
-            .experience-header {
-                flex-direction: column;
-            }
-
-            section {
-                padding: 4rem 0;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            body::before, body::after {
-                display: none;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>李文睿 | 秋招个人主页</title>
+  <meta
+    name="description"
+    content="李文睿的秋招个人主页，聚焦大模型算法、强化学习、Agent 与 RAG 项目展示。"
+  >
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --bg-soft: #fbf8f3;
+      --paper: rgba(255, 255, 255, 0.72);
+      --ink: #1e2a2e;
+      --muted: #5f6c73;
+      --line: rgba(39, 76, 69, 0.14);
+      --strong-line: rgba(39, 76, 69, 0.26);
+      --primary: #274c45;
+      --secondary: #b9683f;
+      --accent: #d9a441;
+      --shadow: 0 22px 60px rgba(27, 39, 43, 0.09);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --nav-height: 72px;
+      --content-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "IBM Plex Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(217, 164, 65, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(39, 76, 69, 0.12), transparent 28%),
+        linear-gradient(180deg, #f7f3ea 0%, #f4efe6 48%, #f1ebdf 100%);
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(39, 76, 69, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(39, 76, 69, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 85%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .shell {
+      width: min(calc(100% - 32px), var(--content-width));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(18px);
+      background: rgba(246, 241, 232, 0.76);
+      border-bottom: 1px solid rgba(39, 76, 69, 0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #fff;
+      background:
+        linear-gradient(135deg, var(--primary), #335f56 60%, #486f66 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 14px 18px;
+      font-size: 0.96rem;
+      color: var(--muted);
+    }
+
+    .nav a {
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      transform: scaleX(0);
+      transform-origin: left;
+      background: var(--secondary);
+      transition: transform 0.25s ease;
+    }
+
+    .nav a:hover::after,
+    .nav a:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    main {
+      padding: 36px 0 72px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main {
+      padding: 34px 34px 28px;
+    }
+
+    .hero-main::before,
+    .hero-side::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.45), transparent 45%),
+        radial-gradient(circle at 88% 16%, rgba(217, 164, 65, 0.12), transparent 24%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      background: rgba(39, 76, 69, 0.08);
+      color: var(--primary);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .hero h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", Georgia, serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 4.6vw, 4.4rem);
+      line-height: 1.04;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.16rem);
+      color: var(--primary);
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    .hero-summary {
+      margin: 0 0 24px;
+      font-size: 1.04rem;
+      color: #334148;
+      max-width: 62ch;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(39, 76, 69, 0.12);
+      background: rgba(255, 255, 255, 0.78);
+      color: #314046;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #355d55 70%, #3c655d 100%);
+      box-shadow: 0 14px 34px rgba(39, 76, 69, 0.22);
+    }
+
+    .button-secondary {
+      color: var(--primary);
+      border-color: rgba(39, 76, 69, 0.14);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .hero-side {
+      padding: 26px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+    }
+
+    .monogram {
+      position: relative;
+      min-height: 210px;
+      border-radius: 22px;
+      border: 1px solid rgba(39, 76, 69, 0.14);
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.9), rgba(244, 237, 226, 0.9)),
+        linear-gradient(135deg, rgba(39, 76, 69, 0.14), transparent 56%);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .monogram::before,
+    .monogram::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(185, 104, 63, 0.11);
+    }
+
+    .monogram::before {
+      width: 180px;
+      height: 180px;
+      top: -68px;
+      right: -46px;
+    }
+
+    .monogram::after {
+      width: 120px;
+      height: 120px;
+      bottom: -30px;
+      left: -24px;
+    }
+
+    .monogram-text {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .monogram-text strong {
+      font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", Georgia, serif;
+      font-size: clamp(2.8rem, 5vw, 4rem);
+      color: var(--primary);
+      letter-spacing: 0.08em;
+    }
+
+    .monogram-text span {
+      font-size: 0.96rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 14px 14px 12px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(39, 76, 69, 0.12);
+    }
+
+    .stat-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.42rem;
+      color: var(--primary);
+    }
+
+    .stat-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    section {
+      padding: 28px 30px;
+      margin-bottom: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .section-kicker {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.84rem;
+      color: var(--secondary);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 2.8vw, 2.15rem);
+      line-height: 1.1;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .intro-text {
+      margin: 0;
+      color: #344249;
+    }
+
+    .focus-list,
+    .award-list,
+    .skill-list,
+    .contact-list,
+    .timeline,
+    .project-points {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .focus-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .focus-list li {
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(39, 76, 69, 0.11);
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .focus-list strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .focus-list span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 22px;
+      border-left: 3px solid rgba(185, 104, 63, 0.3);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -9px;
+      top: 22px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--secondary);
+      box-shadow: 0 0 0 6px rgba(185, 104, 63, 0.12);
+    }
+
+    .timeline-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .timeline-title {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .timeline-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(39, 76, 69, 0.08);
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .timeline-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .project-card {
+      padding: 22px;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.72)),
+        linear-gradient(135deg, rgba(39, 76, 69, 0.08), transparent 40%);
+      border: 1px solid rgba(39, 76, 69, 0.12);
+    }
+
+    .project-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .project-title-wrap {
+      display: grid;
+      gap: 6px;
+    }
+
+    .project-title {
+      font-size: 1.28rem;
+      color: var(--primary);
+    }
+
+    .project-subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .project-metric {
+      flex-shrink: 0;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: rgba(39, 76, 69, 0.08);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .metric-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(185, 104, 63, 0.09);
+      color: #8a4f2f;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .project-points {
+      display: grid;
+      gap: 10px;
+    }
+
+    .project-points li {
+      position: relative;
+      padding-left: 18px;
+      color: #344249;
+    }
+
+    .project-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--secondary);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-list li {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(39, 76, 69, 0.12);
+      background: rgba(255, 255, 255, 0.82);
+      color: #304047;
+      font-size: 0.92rem;
+    }
+
+    .award-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .award-list li {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(39, 76, 69, 0.1);
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .award-list strong {
+      color: var(--primary);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-list li {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(39, 76, 69, 0.12);
+    }
+
+    .contact-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-value {
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .quote-block {
+      margin-top: 22px;
+      padding: 18px 18px 18px 20px;
+      border-left: 3px solid rgba(185, 104, 63, 0.42);
+      border-radius: 0 16px 16px 0;
+      background: rgba(185, 104, 63, 0.06);
+      color: #43474b;
+    }
+
+    footer {
+      padding: 18px 0 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .reveal {
+      animation: rise 0.72s ease both;
+    }
+
+    .reveal-delay-1 {
+      animation-delay: 0.08s;
+    }
+
+    .reveal-delay-2 {
+      animation-delay: 0.16s;
+    }
+
+    .reveal-delay-3 {
+      animation-delay: 0.24s;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        position: static;
+        height: auto;
+        padding: 14px 0;
+      }
+
+      .topbar-inner {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: start;
+      }
+
+      .focus-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      main {
+        padding-top: 20px;
+      }
+
+      .shell {
+        width: min(calc(100% - 20px), var(--content-width));
+      }
+
+      .hero-main,
+      .hero-side,
+      section {
+        padding: 22px 18px;
+      }
+
+      .project-head,
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.35rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <div class="nav-logo">WR</div>
-            <ul class="nav-links">
-                <li><a href="#about">关于</a></li>
-                <li><a href="#research">科研</a></li>
-                <li><a href="#projects">项目</a></li>
-                <li><a href="#experience">经历</a></li>
-                <li><a href="#contact">联系</a></li>
-            </ul>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">LW</div>
+        <div>Autumn Recruitment Profile</div>
+      </div>
+      <nav class="nav" aria-label="站点导航">
+        <a href="#about">简介</a>
+        <a href="#journey">教育与经历</a>
+        <a href="#projects">代表项目</a>
+        <a href="#skills">技能</a>
+        <a href="#awards">奖项</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div class="hero">
+      <section class="panel hero-main reveal">
+        <div class="eyebrow">大模型算法 / 强化学习 / Agent / RAG</div>
+        <h1>李文睿</h1>
+        <div class="hero-subtitle">北京邮电大学人工智能方向在读，面向秋招展示项目、实习与工程落地能力</div>
+        <p class="hero-summary">
+          我主要聚焦 <strong>LLM 后训练</strong>、<strong>单卡强化学习优化</strong>、<strong>Agent 工具调用</strong> 与 <strong>企业级 RAG</strong>。
+          我希望把项目讲成完整的能力证据，而不是关键词堆叠，所以这个主页重点展示我在资源受限条件下把训练链路跑通、调稳、落地的工作。
+        </p>
+        <div class="hero-meta">
+          <span class="chip">北京邮电大学 · 人工智能</span>
+          <span class="chip">桂林电子科技大学 · 通信工程</span>
+          <span class="chip">目标方向：大模型算法岗</span>
+          <span class="chip">城市：北京</span>
         </div>
-    </nav>
-
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-label">Hello, I'm</div>
-                <h1 class="hero-name">李文睿</h1>
-                <p class="hero-title">北京邮电大学 · 计算机科学与技术 · 硕士研究生</p>
-                <p class="hero-school">2025 届秋招 · 后端开发 / 算法工程师</p>
-                <p class="hero-desc">
-                    北邮研二学生，研究方向为分布式系统与高性能计算。
-                    具备扎实的算法功底和工程实践经验，热衷于解决有挑战性的技术问题。
-                    期待加入一家有技术影响力的公司，共同打造优秀的产品。
-                </p>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">
-                        <span>📮</span> 联系我
-                    </a>
-                    <a href="#projects" class="btn btn-secondary">
-                        <span>→</span> 查看项目
-                    </a>
-                </div>
-            </div>
+        <div class="hero-actions">
+          <a class="button button-primary" href="mailto:lwliwenrui@bupt.edu.cn">邮件联系</a>
+          <a class="button button-secondary" href="https://github.com/lwlwr" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="button button-secondary" href="#projects">查看项目</a>
         </div>
-    </section>
+      </section>
 
-    <section id="research">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Research</div>
-                <h2 class="section-title">科研经历</h2>
-            </div>
-            <div class="experience-list">
-                <div class="experience-card fade-in delay-1">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">分布式一致性协议研究</h3>
-                            <p class="experience-role">研究方向</p>
-                        </div>
-                        <span class="experience-period">2023.09 - 至今</span>
-                    </div>
-                    <p class="experience-org">北京邮电大学 · 计算机学院</p>
-                    <div class="experience-desc">
-                        <ul>
-                            <li>研究 Raft/Paxos 共识算法在分布式存储系统中的应用</li>
-                            <li>针对弱一致性场景优化协议性能，提出改进方案</li>
-                            <li>参与实验室分布式系统相关课题研究与实现</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="experience-card fade-in delay-2">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">高性能网络通信框架</h3>
-                            <p class="experience-role">本科毕业设计 · 优秀论文</p>
-                        </div>
-                        <span class="experience-period">2022.09 - 2023.06</span>
-                    </div>
-                    <p class="experience-org">北京邮电大学</p>
-                    <div class="experience-desc">
-                        <ul>
-                            <li>设计并实现基于 Epoll 的高性能网络 I/O 框架</li>
-                            <li>支持百万级并发连接，吞吐量达到 100K QPS</li>
-                            <li>对比研究主流网络框架（Netty、Libevent）的性能差异</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      <aside class="panel hero-side reveal reveal-delay-1">
+        <div class="monogram" aria-hidden="true">
+          <div class="monogram-text">
+            <strong>LWR</strong>
+            <span>Single-GPU LLM Builder</span>
+          </div>
         </div>
-    </section>
-
-    <section id="projects">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Projects</div>
-                <h2 class="section-title">项目经历</h2>
-            </div>
-            <div class="experience-list">
-                <div class="experience-card fade-in delay-1">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">分布式 KV 存储系统</h3>
-                            <p class="experience-role">核心开发 · Golang</p>
-                        </div>
-                        <span class="experience-period">2024.03 - 2024.08</span>
-                    </div>
-                    <p class="experience-org">实验室项目 · 3 人团队</p>
-                    <div class="experience-desc">
-                        <ul>
-                            <li>基于 Raft 共识算法实现分布式一致性</li>
-                            <li>实现 RocksDB 作为底层存储引擎，支持持久化</li>
-                            <li>使用 gRPC 构建节点间通信，支持水平扩展</li>
-                            <li>压力测试结果：3 节点集群可达 50K QPS 写入</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="experience-card fade-in delay-2">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">轻量级容器编排平台</h3>
-                            <p class="experience-role">全栈开发 · Go + Docker + K8s</p>
-                        </div>
-                        <span class="experience-period">2023.11 - 2024.02</span>
-                    </div>
-                    <p class="experience-org">课程项目 · 4 人团队</p>
-                    <div class="experience-desc">
-                        <ul>
-                            <li>实现容器生命周期管理（创建、启动、停止、删除）</li>
-                            <li>基于 Docker API 实现镜像管理与资源限制</li>
-                            <li>设计 RESTful API，支持 Web 端可视化操作</li>
-                            <li>获得课程最高分（98/100）</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="experience-card fade-in delay-3">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">算法竞赛训练平台</h3>
-                            <p class="experience-role">后端开发 · Python + FastAPI</p>
-                        </div>
-                        <span class="experience-period">2023.06 - 2023.09</span>
-                    </div>
-                    <p class="experience-org">个人项目</p>
-                    <div class="experience-desc">
-                        <ul>
-                            <li>实现在线代码评测系统，支持多语言编译执行</li>
-                            <li>使用沙箱技术保障代码执行安全</li>
-                            <li>设计题目管理、竞赛组织、用户积分等功能</li>
-                            <li>部署于阿里云，服务校内 500+ 用户</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="experience-card fade-in delay-4">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">LeetCode 刷题记录</h3>
-                            <p class="experience-role">个人项目</p>
-                        </div>
-                        <span class="experience-period">持续更新</span>
-                    </div>
-                    <div class="experience-desc">
-                        <ul>
-                            <li><strong>累计刷题 800+</strong>，周赛最高排名全球前 5%</li>
-                            <li>擅长数据结构、动态规划、图论算法</li>
-                            <li>整理了系统的算法知识笔记，GitHub 400+ Star</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="stats">
+          <div class="stat-card">
+            <strong>60.4%</strong>
+            <span>Countdown 验证准确率<br>RL 前后提升</span>
+          </div>
+          <div class="stat-card">
+            <strong>99.7%</strong>
+            <span>格式合法率<br>训练后优化结果</span>
+          </div>
+          <div class="stat-card">
+            <strong>23% → 59%</strong>
+            <span>Agentic Research<br>回答准确率</span>
+          </div>
+          <div class="stat-card">
+            <strong>1800+</strong>
+            <span>教育平台试运行<br>累计问答承接量</span>
+          </div>
         </div>
-    </section>
+      </aside>
+    </div>
 
-    <section id="experience">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Experience</div>
-                <h2 class="section-title">校园经历</h2>
+    <div class="grid">
+      <div>
+        <section id="about" class="panel reveal reveal-delay-1">
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">About</span>
+              <h2>我想证明的，不只是“做过”，而是“讲得清、跑得通、调得稳”</h2>
             </div>
-            <div class="experience-list">
-                <div class="experience-card fade-in delay-1">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">计算机学院研究生会</h3>
-                            <p class="experience-role">技术部部长</p>
-                        </div>
-                        <span class="experience-period">2023.09 - 2024.09</span>
-                    </div>
-                    <div class="experience-desc">
-                        <ul>
-                            <li>组织技术分享讲座 10+ 场，邀请业界工程师来校交流</li>
-                            <li>负责学院官网与新生系统的技术维护</li>
-                            <li>带领 5 人团队举办首届北邮黑客马拉松活动</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="section-note">参考学术主页的结构，但内容按秋招面试展示重新组织</div>
+          </div>
+          <p class="intro-text">
+            我当前的核心主线比较清晰：一条是围绕 <strong>强化学习能否在受限算力下提升推理能力</strong>，另一条是围绕
+            <strong>模型如何从被动回答走向主动检索与行动</strong>。这两条线分别对应单卡 GRPO 推理训练和 Agentic Research
+            强化学习优化；在实习里，我又把这些理解落到了真实业务中的知识库问答系统上。
+          </p>
+          <ul class="focus-list">
+            <li>
+              <strong>单卡强化学习训练</strong>
+              <span>围绕 `Qwen2.5-3B` 与 `Llama-8B` 在 `RTX 4090 24GB` 场景下做显存与训练稳定性优化。</span>
+            </li>
+            <li>
+              <strong>Agent 工具调用策略</strong>
+              <span>重点关注“何时检索、如何改写 query、怎样整合 observation”，而不是只会模仿工具格式。</span>
+            </li>
+            <li>
+              <strong>工程落地与指标意识</strong>
+              <span>不只看单点结果，持续监控 reward、格式合法率、响应长度、无依据回答比例等关键行为指标。</span>
+            </li>
+            <li>
+              <strong>业务场景闭环</strong>
+              <span>在教育信创平台中参与企业级 RAG 系统搭建，从知识库清洗、向量检索到 REST 服务集成形成闭环。</span>
+            </li>
+          </ul>
+          <div class="quote-block">
+            我对秋招主页的理解不是“在线简历复刻”，而是把面试官最关心的证据前置出来：做的是什么、难点在哪里、效果如何、我到底改了什么。
+          </div>
+        </section>
 
-                <div class="experience-card fade-in delay-2">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">字节跳动</h3>
-                            <p class="experience-role">后端开发实习生</p>
-                        </div>
-                        <span class="experience-period">2024.07 - 2024.09</span>
-                    </div>
-                    <div class="experience-desc">
-                        <ul>
-                            <li>参与企业级即时通讯系统的后端开发</li>
-                            <li>优化消息处理流程，延迟降低 30%</li>
-                            <li>独立完成新功能模块设计与实现，上线后运行稳定</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="experience-card fade-in delay-3">
-                    <div class="experience-header">
-                        <div>
-                            <h3 class="experience-title">ACM 竞赛集训队</h3>
-                            <p class="experience-role">核心成员</p>
-                        </div>
-                        <span class="experience-period">2020.09 - 2023.06</span>
-                    </div>
-                    <div class="experience-desc">
-                        <ul>
-                            <li>ICPC 区域赛银牌 × 2，CCPC 区域赛银牌</li>
-                            <li>多次获得校级、省级程序设计竞赛一等奖</li>
-                        </ul>
-                    </div>
-                </div>
+        <section id="journey" class="panel reveal reveal-delay-2">
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">Journey</span>
+              <h2>教育与经历</h2>
             </div>
-        </div>
-    </section>
+          </div>
+          <ul class="timeline">
+            <li class="timeline-item">
+              <div class="timeline-top">
+                <div class="timeline-title">北京邮电大学</div>
+                <div class="timeline-tag">硕士在读</div>
+              </div>
+              <div class="timeline-desc">人工智能方向，当前以大模型算法岗为目标，持续投入 RL、Agent 与检索增强方向的项目实践。</div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-top">
+                <div class="timeline-title">桂林电子科技大学</div>
+                <div class="timeline-tag">本科</div>
+              </div>
+              <div class="timeline-desc">通信工程，完成从传统信号与算法训练到大模型工程实践的能力迁移。</div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-top">
+                <div class="timeline-title">北京百川云璟信息科技有限公司</div>
+                <div class="timeline-tag">大模型算法实习生</div>
+              </div>
+              <div class="timeline-desc">参与教育信创平台智能问答模块落地，围绕 RAG、检索优化、服务化接口和业务场景问答质量提升展开工作。</div>
+            </li>
+          </ul>
+        </section>
 
-    <section id="skills">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Skills</div>
-                <h2 class="section-title">技术技能</h2>
+        <section id="projects" class="panel reveal reveal-delay-3">
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">Selected Work</span>
+              <h2>代表项目</h2>
             </div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 class="skill-category-title">编程语言</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Go</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">C/C++</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">JavaScript</span>
-                    </div>
+            <div class="section-note">以下内容按“问题定义 → 我的工作 → 结果”组织</div>
+          </div>
+
+          <div class="project-list">
+            <article class="project-card">
+              <div class="project-head">
+                <div class="project-title-wrap">
+                  <h3 class="project-title">基于 Qwen2.5-3B-Instruct 的单卡强化学习推理能力训练与性能调优</h3>
+                  <div class="project-subtitle">单卡 GRPO / Countdown 可验证任务 / 显存与训练稳定性优化</div>
                 </div>
-                <div class="skill-category">
-                    <h3 class="skill-category-title">后端框架</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Gin</span>
-                        <span class="skill-tag">FastAPI</span>
-                        <span class="skill-tag">Spring Boot</span>
-                        <span class="skill-tag">gRPC</span>
-                    </div>
+                <div class="project-metric">核心结果：4.3% → 60.4%</div>
+              </div>
+              <div class="metric-row">
+                <span class="metric-pill">格式合法率：87.3% → 99.7%</span>
+                <span class="metric-pill">显存峰值：40GB+ → 24GB 内</span>
+                <span class="metric-pill">RTX 4090 24GB 单卡可复现</span>
+              </div>
+              <ul class="project-points">
+                <li>独立完成 `Qwen2.5-3B-Instruct` 在单卡 `RTX 4090` 上的 GRPO 训练链路搭建，覆盖数据预处理、奖励函数设计、采样配置、训练监控与评测闭环。</li>
+                <li>围绕平均奖励、成功率、回复长度、格式奖励等指标重构训练诊断流程，定位输出长度漂移与格式异常问题，并通过分组奖励归一化等方式提升训练可控性。</li>
+                <li>面向单卡显存约束，系统分析 actor、reference、rollout 等模块的开销，通过优化器参数转移到 CPU、响应长度控制、unfinished episode filtering 等策略将训练压缩进 `24GB`。</li>
+                <li>项目价值不只是把脚本跑通，而是在受陒资源下建立一套可信的 RL 训练与稳定性优化方法论。</li>
+              </ul>
+            </article>
+
+            <article class="project-card">
+              <div class="project-head">
+                <div class="project-title-wrap">
+                  <h3 class="project-title">基于 Llama-8B 的 Agentic Research 单卡强化学习训练与优化</h3>
+                  <div class="project-subtitle">Agentic RL / 自举式问答生成 / 检索与答案验证闭环</div>
                 </div>
-                <div class="skill-category">
-                    <h3 class="skill-category-title">基础设施</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Kubernetes</span>
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">Redis</span>
-                        <span class="skill-tag">RocksDB</span>
-                    </div>
+                <div class="project-metric">核心结果：23% → 59%</div>
+              </div>
+              <div class="metric-row">
+                <span class="metric-pill">工具调用格式成功率：+27.7%</span>
+                <span class="metric-pill">100 步训练取得显著收益</span>
+                <span class="metric-pill">8B 模型单卡低成本实验</span>
+              </div>
+              <ul class="project-points">
+                <li>在 `Llama3.1-8B` 基础上搭建面向领域文档库的 Agentic RL 训练闭环，包含问答生成、语义检索、答案验证与策略优化等关键环节。</li>
+                <li>将原始“正确性 + 格式奖励”的单一目标扩展为“答案正确性 + 工具调用格式 + 查询改写质量 + 幻觉惩罚”的多目标奖励体系，显著提升回答质量与工具调用稳定性。</li>
+                <li>针对检索训练与泛化评估一致性问题，升级检索命中记录和数据切分方式，避免训练集与测试集共享相邻文档片段，提升实验结果可信度。</li>
+                <li>采用 `QLoRA 4-bit`、小批量、短上下文与 Unsloth 优化方案，将 8B 模型 100 步训练时长控制在约 1 小时量级，支撑快速实验迭代。</li>
+              </ul>
+            </article>
+
+            <article class="project-card">
+              <div class="project-head">
+                <div class="project-title-wrap">
+                  <h3 class="project-title">教育信创平台智能问答模块落地</h3>
+                  <div class="project-subtitle">企业级 RAG / DashScope + LangChain + Milvus/FAISS + FastAPI</div>
                 </div>
-                <div class="skill-category">
-                    <h3 class="skill-category-title">工具 & 其他</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Vim</span>
-                        <span class="skill-tag">LaTeX</span>
-                    </div>
-                </div>
+                <div class="project-metric">核心结果：无依据回答 80% → 5%</div>
+              </div>
+              <div class="metric-row">
+                <span class="metric-pill">试运行问答量：1800+</span>
+                <span class="metric-pill">清洗语料：3842 条</span>
+                <span class="metric-pill">检索片段：8716 个</span>
+              </div>
+              <ul class="project-points">
+                <li>参与教育部教育管理信息中心国产化适配需求下的智能问答模块建设，在真实业务场景中完成问答能力接入与验证。</li>
+                <li>负责知识库构建与检索链路优化，持续迭代分块策略、Top-K、相似度阈值与系统提示词约束，显著降低无依据回答比例。</li>
+                <li>将 RAG 能力封装为 `/ask`、`/rebuild` 等 REST 服务并接入 Java 主平台，补齐日志监控、异常恢复与向量库迁移预案。</li>
+                <li>项目让我形成了“算法效果必须通过业务指标证明”的工程意识，而不是只停留在离线实验层面。</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <div>
+        <section id="skills" class="panel reveal reveal-delay-2">
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">Capabilities</span>
+              <h2>技能栈</h2>
             </div>
-        </div>
-    </section>
+          </div>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>PyTorch</li>
+            <li>NumPy / Pandas</li>
+            <li>MATLAB</li>
+            <li>GRPO / PPO</li>
+            <li>QLoRA / Unsloth</li>
+            <li>RAG Pipeline</li>
+            <li>LangChain</li>
+            <li>Milvus / FAISS</li>
+            <li>FastAPI</li>
+            <li>Git / Linux</li>
+            <li>训练监控与评测</li>
+          </ul>
+        </section>
 
-    <section id="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="contact-title">Let's Connect</h2>
-                <p class="contact-desc">
-                    对我的经历感兴趣？欢迎随时联系我，期待与您交流！
-                </p>
-                <div class="contact-links">
-                    <a href="mailto:your.email@bupt.edu.cn" class="contact-link">
-                        <span>📧</span> 邮件
-                    </a>
-                    <a href="https://github.com/yourusername" target="_blank" class="contact-link">
-                        <span>🐙</span> GitHub
-                    </a>
-                    <a href="https://juejin.cn/user/yourid" target="_blank" class="contact-link">
-                        <span>📝</span> 掘金
-                    </a>
-                </div>
+        <section id="awards" class="panel reveal reveal-delay-3">
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">Honors</span>
+              <h2>奖项与校园经历</h2>
             </div>
-        </div>
-    </section>
+          </div>
+          <ul class="award-list">
+            <li><strong>国家奖学金</strong>、<strong>国家励志奖学金</strong>、<strong>自治区人民政府奖学金</strong></li>
+            <li><strong>校一等奖学金</strong> 本硕连续五年</li>
+            <li>班长、团支部书记、学习委员、助理班主任、讲师等多项学生工作经历</li>
+          </ul>
+        </section>
 
-    <footer>
-        <div class="container">
-            <p class="footer-text">© 2024 李文睿 · 北京邮电大学</p>
-        </div>
-    </footer>
+        <section id="contact" class="panel reveal reveal-delay-3">
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">Contact</span>
+              <h2>联系我</h2>
+            </div>
+          </div>
+          <ul class="contact-list">
+            <li>
+              <span class="contact-label">Email</span>
+              <a class="contact-value" href="mailto:lwliwenrui@bupt.edu.cn">lwliwenrui@bupt.edu.cn</a>
+            </li>
+            <li>
+              <span class="contact-label">Phone</span>
+              <a class="contact-value" href="tel:18515140168">18515140168</a>
+            </li>
+            <li>
+              <span class="contact-label">GitHub</span>
+              <a class="contact-value" href="https://github.com/lwlwr" target="_blank" rel="noreferrer">github.com/lwlwr</a>
+            </li>
+            <li>
+              <span class="contact-label">Location</span>
+              <span class="contact-value">北京</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
 
-    <script>
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Add current year to footer
-        document.querySelector('.footer-text').textContent = 
-            `© ${new Date().getFullYear()} 李文睿 · 北京邮电大学`;
-    </script>
+  <footer>
+    <div class="shell">Designed for autumn recruitment showcase. Last updated: 2026.04</div>
+  </footer>
 </body>
 </html>
