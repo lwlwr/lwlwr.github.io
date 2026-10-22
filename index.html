@@ -1,382 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>李文睿 (Wenrui Li) | 大模型算法</title>
-  <meta name="description" content="李文睿的秋招个人主页，聚焦大模型算法、强化学习、Agent 与 RAG 项目展示。">
-  <style>
-    /* 全局重置与基础样式 */
-    body {
-      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
-      line-height: 1.6;
-      color: #222;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 3em 1.5em;
-      background-color: #fff;
-    }
-    
-    a {
-      color: #1772d0;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    a:hover {
-      text-decoration: underline;
-      color: #0b498b;
-    }
-    
-    h1, h2, h3, h4 {
-      color: #111;
-      font-weight: 600;
-    }
-
-    /* 头部个人信息区 */
-    .profile-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-bottom: 3em;
-      gap: 3em;
-    }
-
-    .profile-info {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .profile-info h1 {
-      margin-top: 0;
-      margin-bottom: 0.2em;
-      font-size: 2.4em;
-    }
-
-    .profile-info h3 {
-      margin-top: 0;
-      font-weight: 400;
-      color: #555;
-      font-size: 1.1em;
-      margin-bottom: 1em;
-    }
-
-    .profile-photo {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      object-fit: cover;
-      background-color: #f4f4f4;
-      border: 1px solid #eaeaea;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-size: 0.9em;
-      text-align: center;
-    }
-
-    .contact-links {
-      margin-top: 1.2em;
-      font-size: 1.05em;
-    }
-
-    .contact-links a {
-      margin-right: 15px;
-    }
-
-    /* 章节标题 */
-    .section-title {
-      font-size: 1.5em;
-      border-bottom: 1px solid #eaeaea;
-      padding-bottom: 0.3em;
-      margin-top: 2em;
-      margin-bottom: 1.2em;
-    }
-
-    /* 列表项（经历/新闻） */
-    .list-item {
-      display: flex;
-      margin-bottom: 1em;
-      align-items: baseline;
-    }
-
-    .list-date {
-      width: 140px;
-      flex-shrink: 0;
-      font-weight: 500;
-      color: #555;
-    }
-
-    .list-content {
-      flex: 1;
-    }
-
-    /* 项目/论文列表区 */
-    .project-item {
-      display: flex;
-      gap: 1.5em;
-      margin-bottom: 2em;
-      align-items: flex-start;
-    }
-
-    .project-img {
-      width: 200px;
-      height: 125px;
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 6px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #adb5bd;
-      font-size: 0.85em;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
-
-    .project-info {
-      flex: 1;
-    }
-
-    .project-title {
-      font-size: 1.15em;
-      font-weight: 600;
-      margin: 0 0 0.2em 0;
-      color: #222;
-    }
-
-    .project-subtitle {
-      color: #555;
-      font-size: 0.95em;
-      margin-bottom: 0.4em;
-    }
-
-    .project-highlight {
-      font-weight: 600;
-      color: #c0392b;
-      font-size: 0.9em;
-      margin-bottom: 0.4em;
-    }
-
-    .project-desc {
-      font-size: 0.95em;
-      color: #444;
-      margin-bottom: 0.6em;
-      text-align: justify;
-    }
-
-    .project-links {
-      font-size: 0.9em;
-      font-family: monospace;
-    }
-
-    .project-links a {
-      color: #1772d0;
-      margin-right: 8px;
-    }
-
-    /* 技能标签 */
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      list-style: none;
-      padding: 0;
-      margin: 0 0 1.5em 0;
-    }
-
-    .skills-list li {
-      background: #f1f3f5;
-      color: #495057;
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-size: 0.85em;
-      border: 1px solid #e9ecef;
-    }
-
-    /* 页脚 */
-    footer {
-      text-align: center;
-      margin-top: 4em;
-      padding-top: 1.5em;
-      border-top: 1px solid #eaeaea;
-      color: #777;
-      font-size: 0.85em;
-    }
-
-    /* 移动端适配 */
-    @media (max-width: 768px) {
-      .project-item {
-        flex-direction: column;
-      }
-      .project-img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16/9;
-      }
-      .profile-header {
-        flex-direction: column-reverse;
-        text-align: center;
-      }
-      .list-item {
-        flex-direction: column;
-      }
-      .list-date {
-        width: auto;
-        margin-bottom: 0.3em;
-        color: #777;
-        font-size: 0.9em;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="李文睿，北京邮电大学人工智能硕士，2027届。关注大模型后训练与Agent算法，展示GRPO个人项目、TeleAI Agent数据评测及华为轻量TTS训练导出经历。">
+<meta name="color-scheme" content="light">
+<title>李文睿 Wenrui Li · 大模型后训练 / Agent · 2027届</title>
+<style>
+:root{--ink:#142638;--muted:#536575;--line:#dce5e9;--accent:#08675e;--soft:#edf6f3;--paper:#fff;--bg:#f6f8f9}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}a{color:var(--accent);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}a:focus-visible,summary:focus-visible{outline:3px solid #c16b21;outline-offset:5px}.wrap{max-width:1040px;margin:auto;padding:0 28px}.skip{position:absolute;top:-90px;left:20px;background:white;padding:10px}.skip:focus{top:10px}nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;border-bottom:1px solid var(--line)}nav a{text-decoration:none}nav div{display:flex;gap:22px;flex-wrap:wrap}.brand{font-weight:750;color:var(--ink)}header{padding:66px 0 48px;max-width:860px}.eyebrow{font:700 12px/1.5 system-ui;letter-spacing:.14em;color:var(--accent)}h1{font-size:clamp(36px,6vw,56px);line-height:1.2;margin:15px 0 18px;letter-spacing:-.04em}h1 span{font-size:.48em;font-weight:500;letter-spacing:0;color:var(--muted);white-space:nowrap}h2{font-size:26px;line-height:1.4;margin:0 0 22px}h3{font-size:21px;line-height:1.5;margin:8px 0 12px}p{margin:10px 0}.lead{font-size:22px;line-height:1.6;font-weight:600}.muted,small{color:var(--muted)}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.button{display:inline-block;text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:8px 16px;background:var(--paper)}.button.primary{background:var(--accent);border-color:var(--accent);color:white}section{padding:36px 0;border-top:1px solid var(--line)}.intro-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.mini,.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:24px}.mini strong{display:block;font-size:18px;margin-bottom:8px}.mini p{font-size:14px;color:var(--muted)}.card{margin-bottom:18px}.topline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}.tag{display:inline-block;background:var(--soft);color:var(--accent);border-radius:4px;padding:1px 8px;font-size:12px;font-weight:650}.facts{display:grid;grid-template-columns:1fr 1fr;gap:28px}.facts h4{font-size:14px;margin:16px 0 6px;color:var(--accent)}ul{padding-left:22px;margin:6px 0 14px}li{margin:6px 0}.links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:14px}.note{background:var(--soft);border-left:3px solid var(--accent);padding:12px 16px;font-size:14px;margin-top:18px}.timeline{display:grid;grid-template-columns:160px 1fr;gap:12px 24px}.timeline time{color:var(--muted);font-size:14px}.timeline p{margin:0 0 18px}details{margin-top:16px;border-top:1px solid var(--line);padding-top:12px;font-size:14px}summary{cursor:pointer;color:var(--accent);font-weight:600}.skills{display:flex;flex-wrap:wrap;gap:8px}.skills span{border:1px solid var(--line);padding:3px 12px;border-radius:4px;font-size:14px;background:white}footer{padding:28px 0 36px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}@media(max-width:650px){.wrap{padding:0 20px}nav{align-items:flex-start;font-size:14px}nav div{gap:8px 14px}header{padding:42px 0 32px}.intro-grid,.facts{grid-template-columns:1fr}.facts{gap:0}.timeline{grid-template-columns:1fr;gap:0}.card{padding:20px}.lead{font-size:20px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{body{background:white}.wrap{max-width:none}nav,.skip,.actions{display:none}header{padding:20px 0}.card{break-inside:avoid}a{color:inherit}}
+</style>
 </head>
 <body>
-
-  <div class="profile-header">
-    <div class="profile-info">
-      <h1>李文睿 (Wenrui Li)</h1>
-      <h3>大模型算法岗 | 秋招求职者</h3>
-      <p>
-        你好，我是李文睿，目前在北京邮电大学攻读人工智能方向硕士学位。我的核心研究与工程实践聚焦于 <strong>大模型(LLM)后训练</strong>、<strong>单卡强化学习优化 (RLHF/GRPO)</strong>、<strong>Agent 工具调用</strong> 与 <strong>企业级 RAG 系统</strong>。
-      </p>
-      <p>
-        我非常关注在受限算力下如何把训练链路跑通、调稳、落地。在此之前，我曾在北京百川云璟信息科技有限公司担任大模型算法实习生，参与教育大模型问答系统的落地工作。我目前正在寻找工业界的大模型算法工作机会。
-      </p>
-      <div class="contact-links">
-        <a href="mailto:lwliwenrui@bupt.edu.cn">Email</a> /
-        <a href="https://github.com/lwlwr" target="_blank" rel="noreferrer">Github</a>
-      </div>
-    </div>
-    <div class="profile-photo">
-      Profile Photo<br>(建议 1:1 比例)
-    </div>
-  </div>
-
-  <h2 class="section-title">Highlights</h2>
-  <div class="list-item">
-    <div class="list-date">202X - Present</div>
-    <div class="list-content">
-      <strong>单卡 GRPO 推理训练突破:</strong> 在 RTX 4090 24GB 单卡上完成 Qwen2.5-3B-Instruct 的 RL 训练，Countdown 验证准确率由 4.3% 提升至 60.4%。
-    </div>
-  </div>
-  <div class="list-item">
-    <div class="list-date">202X - Present</div>
-    <div class="list-content">
-      <strong>Agentic Research 优化:</strong> 构建 Llama-8B 面向领域文档的 Agentic RL 闭环，工具调用格式成功率提升 27.7%，准确率从 23% 升至 59%。
-    </div>
-  </div>
-  <div class="list-item">
-    <div class="list-date">202X - Present</div>
-    <div class="list-content">
-      <strong>企业级 RAG 落地:</strong> 参与搭建百川云璟教育智能问答模块，承接 1800+ 试运行问答，无依据回答比例由 80% 降至 5%。
-    </div>
-  </div>
-
-  <h2 class="section-title">Experience & Education</h2>
-  <div class="list-item">
-    <div class="list-date">202X.XX - 至今</div>
-    <div class="list-content">
-      <strong>大模型算法实习生</strong>, 北京百川云璟信息科技有限公司<br>
-      参与教育部教育管理信息中心国产化适配需求下的智能问答模块建设。负责知识库构建与检索链路优化（DashScope + LangChain + Milvus/FAISS），将 RAG 能力封装为 REST 服务并接入 Java 主平台。
-    </div>
-  </div>
-  <div class="list-item">
-    <div class="list-date">202X.XX - 202X.XX</div>
-    <div class="list-content">
-      <strong>硕士在读</strong>，人工智能，北京邮电大学 (BUPT)<br>
-      核心方向：强化学习、Agent 与检索增强。获得连续五年校一等奖学金。
-    </div>
-  </div>
-  <div class="list-item">
-    <div class="list-date">201X.XX - 202X.XX</div>
-    <div class="list-content">
-      <strong>本科学士</strong>，通信工程，桂林电子科技大学 (GUET)<br>
-      获得国家奖学金、国家励志奖学金、自治区人民政府奖学金。
-    </div>
-  </div>
-
-  <h2 class="section-title">Selected Projects</h2>
-
-  <div class="project-item">
-    <div class="project-img">
-      [架构图 / 训练曲线]<br>Qwen2.5-3B GRPO
-    </div>
-    <div class="project-info">
-      <div class="project-title">基于 Qwen2.5-3B-Instruct 的单卡强化学习推理能力训练与性能调优</div>
-      <div class="project-subtitle">单卡 GRPO / Countdown 任务 / 显存与稳定性优化</div>
-      <div class="project-highlight">TL;DR: 在 RTX 4090 24GB 单卡上跑通完整 GRPO 链路，验证准确率提升至 60.4%，格式合法率达 99.7%。</div>
-      <div class="project-desc">
-        独立完成数据预处理、奖励函数设计、采样配置与评测闭环。重构训练诊断流程定位输出长度漂移问题，通过分组奖励归一化提升可控性。面向单卡约束，通过优化器参数转移到 CPU、长度控制与 unfinished episode filtering 等策略将显存压缩进 24GB。
-      </div>
-      <div class="project-links">
-        <a href="#">[Code]</a>
-        <a href="#">[Project Page]</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-img">
-      [Agent 检索示意图]<br>Llama-8B Agentic RL
-    </div>
-    <div class="project-info">
-      <div class="project-title">基于 Llama-8B 的 Agentic Research 单卡强化学习训练与优化</div>
-      <div class="project-subtitle">Agentic RL / 自举式问答生成 / 检索与答案验证闭环</div>
-      <div class="project-highlight">TL;DR: 采用多目标奖励体系提升 Agent 稳定性，百步训练后回答准确率 23% → 59%。</div>
-      <div class="project-desc">
-        将单一目标扩展为“正确性+工具格式+查询改写质量+幻觉惩罚”的多目标奖励体系。升级检索命中记录和数据切分方式，避免训练/测试集信息泄露。结合 QLoRA 4-bit、小批量短上下文与 Unsloth，将 8B 模型的 100 步训练耗时控制在 1 小时级别。
-      </div>
-      <div class="project-links">
-        <a href="#">[Code]</a>
-        <a href="#">[Demo]</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-img">
-      [RAG 系统架构图]<br>企业级问答系统
-    </div>
-    <div class="project-info">
-      <div class="project-title">教育信创平台智能问答模块落地 (百川云璟实习)</div>
-      <div class="project-subtitle">企业级 RAG / 知识清洗 / 检索调优</div>
-      <div class="project-highlight">TL;DR: 完成真实业务闭环，清洗 3842 条语料，无依据回答从 80% 降至 5%。</div>
-      <div class="project-desc">
-        在真实业务中完成问答接入。持续迭代分块策略、Top-K、相似度阈值与系统提示词约束。补齐了日志监控、异常恢复与向量库迁移预案，形成了“算法效果必须通过业务指标证明”的工程落地意识。
-      </div>
-      <div class="project-links">
-        <a href="#">[Internal Project]</a>
-      </div>
-    </div>
-  </div>
-
-  <h2 class="section-title">Skills & Honors</h2>
-  
-  <ul class="skills-list">
-    <li>Python</li>
-    <li>PyTorch</li>
-    <li>NumPy / Pandas</li>
-    <li>MATLAB</li>
-    <li>GRPO / PPO</li>
-    <li>QLoRA / Unsloth</li>
-    <li>RAG Pipeline</li>
-    <li>LangChain</li>
-    <li>Milvus / FAISS</li>
-    <li>FastAPI</li>
-    <li>Git / Linux</li>
-  </ul>
-
-  <ul style="color: #444; font-size: 0.95em;">
-    <li><strong>荣誉奖项：</strong>国家奖学金、国家励志奖学金、自治区人民政府奖学金、本硕连续五年校一等奖学金。</li>
-    <li><strong>学生工作：</strong>担任过班长、团支部书记、学习委员、助理班主任、讲师等多项工作。</li>
-  </ul>
-
-  <footer>
-    &copy; 2026 Wenrui Li. Last updated: April, 2026. <br>
-    <span style="font-size: 0.85em; color: #aaa;">Template inspired by minimalist academic websites.</span>
-  </footer>
-
+<a class="skip" href="#main">跳到主要内容</a>
+<div class="wrap">
+<nav aria-label="主导航"><a class="brand" href="https://github.com/lwlwr">LW / 李文睿</a><div><a href="#projects">项目与技术实践</a><a href="#experience">经历</a><a href="#education">教育</a><a href="mailto:lwliwenrui@bupt.edu.cn">联系</a></div></nav>
+<header>
+<div class="eyebrow">2027 GRADUATE · BEIJING</div>
+<h1>李文睿 <span>Wenrui Li</span></h1>
+<p class="lead">大模型后训练 · Agent 算法</p>
+<p>北京邮电大学人工智能硕士在读，预计 2027 年 6 月毕业。求职方向为大模型后训练、基础模型组与 Agent 算法岗位。</p>
+<p class="muted">技术实践覆盖 Countdown 单卡 GRPO、Agent 工具调用数据与执行评测，以及轻量 TTS 的训练诊断和 ONNX 导出。关注奖励是否可靠、评测是否独立、系统是否真正可运行。</p>
+<div class="actions"><a class="button primary" href="mailto:lwliwenrui@bupt.edu.cn">邮件联系</a><a class="button" href="#projects">查看技术实践</a><a class="button" href="https://github.com/lwlwr/lwlwr.github.io">公开代码与说明</a></div>
+</header>
+<main id="main">
+<section aria-labelledby="focus-title">
+<h2 id="focus-title">技术侧重点</h2>
+<div class="intro-grid">
+<div class="mini"><strong>训练与诊断</strong><p>规则奖励、rollout、组内相对优势、长度异常诊断与单卡显存约束。</p></div>
+<div class="mini"><strong>数据与评测</strong><p>多难度任务构造、工具调用轨迹分析、任务状态与产物一致性校验。</p></div>
+<div class="mini"><strong>工程与部署</strong><p>语音对齐问题定位、可复现推理、ONNX 数值验证与量化敏感性分析。</p></div>
+</div>
+</section>
+<section id="projects" aria-labelledby="projects-title">
+<h2 id="projects-title">项目与技术实践</h2>
+<article class="card" id="grpo">
+<div class="topline"><span class="tag">个人项目 · 历史训练实践</span><span>2026.01 – 2026.02</span></div>
+<h3>Qwen2.5-3B-Instruct · Countdown GRPO</h3>
+<p>面向可验证数字运算任务，搭建数据处理、规则奖励、采样、训练监控与评测链路，探索 RTX 4090 24GB 单卡约束下的训练配置。</p>
+<div class="facts"><div><h4>个人工作</h4><ul><li>设计任务正确性与格式奖励，跟踪 reward、成功率与回复长度，定位长度漂移和格式异常。</li><li>围绕 optimizer CPU offload、响应长度与未完成样本过滤开展显存及训练配置调试。</li></ul></div><div><h4>可查看的技术材料</h4><ul><li>本次新增独立表达式评测工具：限制运算语法、检查数字使用次数、用有理数判断答案。</li><li>提供合成示例与单元测试；工具不是历史训练脚本，也不复现历史模型成绩。</li></ul></div></div>
+<div class="links"><a href="https://github.com/lwlwr/lwlwr.github.io/tree/main/tools">评测代码与测试</a><a href="https://github.com/lwlwr/lwlwr.github.io/blob/main/docs/grpo.md">项目说明与复现方案</a></div>
+<details><summary>历史结果与当前证据状态</summary><p>历史简历和项目笔记记录了准确率 4.3% → 60.4%，但本仓库尚未提供对应固定验证集、解码配置、逐题预测及训练日志，因此不将该数字作为已公开复现的成绩。当前评测工具为 2026-10-23 新增，不能倒推历史结果已经验证。</p></details>
+</article>
+<article class="card" id="agent">
+<div class="topline"><span class="tag">企业实习 · 数据与评测工程</span><span>TeleAI · 2026.03 – 2026.05</span></div>
+<h3>Agent 工具调用数据构建与执行轨迹评测</h3>
+<p>在中国电信人工智能研究院基础模型组参与 Agent 数据建设，覆盖文件处理、办公、数据库、日程、地图及定时任务等场景。</p>
+<div class="facts"><div><h4>个人工作</h4><ul><li>在 Query 构造中加入用户画像、时间上下文、文件路径及 Skill / Cron 约束，组织 L1 / L2 / L3 难度任务。</li><li>参与文件操作评测样本建设，处理目录映射、跨源元数据及一致性校验。</li><li>基于 OpenClaw / TeleGym 执行任务，解析工具调用、任务状态、落盘产物与最终回复，编写日志聚合分析脚本。</li></ul></div><div><h4>评测方法与贡献边界</h4><ul><li>区分工具执行成功、任务产物正确和最终回复一致。</li><li>区分数据工程、权重更新与隔离集上的能力提升，分别验收。</li><li>不将异步任务的重试与延迟观测收益归因于模型训练。</li></ul></div></div>
+<div class="links"><a href="https://github.com/lwlwr/lwlwr.github.io/blob/main/docs/agent.md">工程方法与独立评测方案</a></div>
+<p class="muted"><small>企业项目仅展示职责与通用方法，不提供内部代码、任务数据、轨迹或模型权重。</small></p>
+</article>
+<article class="card" id="tts">
+<div class="topline"><span class="tag">企业实习 · 训练诊断与导出</span><span>华为 · 2026.06 – 2026.08</span></div>
+<h3>轻量 TTS · 对齐诊断、ONNX 与量化分析</h3>
+<p>面向端侧语音生成场景，在模型体积约束下开展 VITS-lite 训练评测、音质问题定位及推理导出工作。</p>
+<div class="facts"><div><h4>个人工作</h4><ul><li>搭建文本前端、MAS 对齐、Flow 与声码器的训练评测链路，组织 PESQ / STOI / MCD / RTF 评测。</li><li>结合 MAS 路径、音素时长分布与 prior decoder 输出定位并修复对齐异常。</li><li>通过外部噪声输入和固定随机种子，开展 PyTorch / ONNX 输出一致性验证。</li></ul></div><div><h4>工程验证</h4><ul><li>开展 INT8 校准、验证和逐层敏感性分析，定位敏感算子。</li><li>分别检查导出成功、固定输入数值一致、目标设备运行及质量性能验收。</li><li>本页不将波形余弦相似度等同于主观音质，也不声称目标 NPU 已验收通过。</li></ul></div></div>
+<div class="links"><a href="https://github.com/lwlwr/lwlwr.github.io/blob/main/docs/tts.md">诊断与部署验证说明</a></div>
+<p class="muted"><small>企业项目仅展示职责与通用方法，不公开内部实现、音频、校准数据或权重。</small></p>
+</article>
+<article class="card" id="rag">
+<div class="topline"><span class="tag">企业实习 · RAG 工程</span><span>百川云璟 · 2025.09 – 2025.11</span></div>
+<h3>教育信创平台 · 检索增强问答</h3>
+<p>参与语料解析、语义切分、向量检索、证据拼接与生成链路；围绕 chunk size、Top-K 和 Prompt 调整检索及回答行为，并将问答能力封装为 FastAPI REST 服务。</p>
+<p class="muted">重点关注同源文档泄漏、证据不足时的拒答及来源可核验性。公开说明不展示尚缺评测集与计算口径支撑的效果数字，也不提供企业内部材料。</p>
+<div class="links"><a href="https://github.com/lwlwr/lwlwr.github.io/blob/main/docs/rag.md">工程范围与评测设计</a></div>
+</article>
+</section>
+<section id="experience" aria-labelledby="experience-title">
+<h2 id="experience-title">实习经历</h2>
+<div class="timeline">
+<time>2026.06 – 2026.08</time><p><strong>华为 · 多模态算法实习</strong><br><span class="muted">轻量 TTS 训练、对齐诊断、ONNX 导出与量化分析。</span></p>
+<time>2026.03 – 2026.05</time><p><strong>TeleAI · 基础模型组实习</strong><br><span class="muted">Agent 工具调用数据构造、执行轨迹分析与评测工程。</span></p>
+<time>2025.09 – 2025.11</time><p><strong>北京百川云璟 · 大模型算法实习</strong><br><span class="muted">教育信创平台 RAG 问答链路与服务封装。</span></p>
+</div>
+</section>
+<section id="education" aria-labelledby="education-title">
+<h2 id="education-title">教育背景</h2>
+<div class="timeline"><time>2024.09 – 2027.06（预计）</time><p><strong>北京邮电大学 · 人工智能 · 硕士</strong></p><time>2020.09 – 2024.06</time><p><strong>桂林电子科技大学 · 通信工程 · 本科</strong></p></div>
+<p class="muted">曾获国家奖学金、国家励志奖学金、自治区人民政府奖学金及校一等奖学金。</p>
+</section>
+<section aria-labelledby="skills-title"><h2 id="skills-title">技术栈</h2><div class="skills"><span>Python / PyTorch</span><span>Transformers</span><span>GRPO / 规则奖励</span><span>Agent Tool-use</span><span>执行轨迹评测</span><span>VITS / ONNX</span><span>RAG / LangChain</span><span>Milvus / FastAPI</span></div>
+<div class="note">本页区分历史实践、公开可运行工具与尚待补齐的复现材料。企业经历只展示个人职责和通用方法；性能结论需有匹配的任务、配置和原始评测证据。<a href="https://github.com/lwlwr/lwlwr.github.io/blob/main/docs/evidence-policy.md">查看展示原则</a></div>
+</section>
+</main>
+<footer>© 2026 Wenrui Li · 内容更新：<time datetime="2026-10-23">2026-10-23</time>（北京时间） · <a href="https://github.com/lwlwr/lwlwr.github.io">页面源码</a></footer>
+</div>
 </body>
 </html>

@@ -1,0 +1,4 @@
+{"id":"synthetic-1","numbers":[2,3],"target":6,"expression":"2*3"}
+{"id":"synthetic-2","numbers":[3,3,8,8],"target":24,"expression":"8/(3-8/3)"}
+{"id":"synthetic-3","numbers":[2,2,3],"target":6,"expression":"2*3"}
+{"id":"synthetic-4","numbers":[2,3],"target":6,"expression":""}
